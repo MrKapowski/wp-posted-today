@@ -66,7 +66,7 @@ function cdb_postedtoday( $atts ) {
 	// gor results?
 	if ( $posts_from_today->have_posts() ) {
 		
-		$the_date = date(get_option('date_format'), strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
+		$the_date = date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ));
 		// get the grammar right for a result of 1
 		$singular = sprintf(
 			_x('There is <strong>1</strong> post previously published on %s', 'Single post found', 'postedtoday'),
@@ -103,7 +103,7 @@ function cdb_postedtoday( $atts ) {
 				}
 				
 				// ok make the list for this year
-				$output .= $endlist . '<li><strong>' . date(get_option('date_format'), strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
+				$output .= $endlist . '<li><strong>' . date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $post_year   )) . '</strong><ul>';
 				
 				// now track this year as current
 				$year_tracker = $post_year;
@@ -123,10 +123,10 @@ function cdb_postedtoday( $atts ) {
 		
 		
 	} else {
-		$output = sprintf(
+		$output = '<p>' . sprintf(
 			_x('No posts were previously published on %s', 'No posts for this date', 'postedtoday'),
-			date(get_option('date_format'), strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
-		);	
+			date_i18n('F j', strtotime( $today['mon'] . '/' . $today['mday'] . '/' . $today['year']   ) )
+		) . '</p>';	
 	}
 	
 	// restore post query
